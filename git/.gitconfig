@@ -1,0 +1,19 @@
+[user]
+            email = mlabrana@rbbn.com
+            name = Mario Alexis Labrana
+[core]
+            editor = vim
+[color]
+        ui = auto
+[difftool "vimdiff"]
+        cmd = "vimdiff -R  ${REMOTE} -c ':se noreadonly' ${LOCAL}"
+[mergetool "vimdiff3"]
+          cmd = vim -u ~/.vimrc -f -d -c \"wincmd J\" \"$MERGED\" -R \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool]
+            prompt = false
+[merge]
+            tool = vimdiff
+[pack]
+        threads = 1
+[alias]
+        graph = log --decorate --oneline --graph
