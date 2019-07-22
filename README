@@ -1,2 +1,0 @@
-# oneliner to basic configure vim
-echo "colo desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|inoremap jk <esc>" > ~/.vimrc
