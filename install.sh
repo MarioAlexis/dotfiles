@@ -44,5 +44,5 @@ function link_to_home()
 #   MAIN
 ##################
 
-DOTFILES_TO_INSTALL=".gitconfig .tmux.conf .vimrc .zshrc .bashrc .shell_alias .shell_env .shell_functions .ctags"
+DOTFILES_TO_INSTALL=".gitconfig .tmux.conf .vimrc .zshrc .bashrc .shell_alias .shell_env .shell_functions"
 link_to_home "$DOTFILES_TO_INSTALL"
