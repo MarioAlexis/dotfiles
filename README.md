@@ -66,8 +66,8 @@ FontHeight=11
 ## Dotfiles Installation
 ```bash
 # Create dotfiles dir
-mkdir -p ~/.dotfiles && pushd ~/.dotfiles && \
 # Grab raq dotfiles by calling dotfiles installer script
+mkdir -p ~/.dotfiles && pushd ~/.dotfiles && \
 bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/lpracette/dotfiles/master/install.sh)" && \
 popd
 ```
