@@ -63,6 +63,11 @@ Font=DejaVuSansMono NF
 FontHeight=11
 ```
 
+## VIM oneliner
+```bash
+echo "colo desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|inoremap jk <esc>" > ~/.vimrc
+```
+
 ## Dotfiles Installation
 ```bash
 # Create dotfiles dir
