@@ -176,7 +176,7 @@ set virtualedit=block
 set scrolloff=10
 
 " Mouse all
-set mouse=a
+"set mouse=a
 
 " Gvim options
 if has("gui_running")
