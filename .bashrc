@@ -39,3 +39,8 @@ export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
 # # k8s completion
 command -v kubectl >/dev/null 2>&1 && source <(kubectl completion bash)
 command -v helm >/dev/null 2>&1 && source <(helm completion bash)
+
+# Make bash auto-complete liek zsh (similar, not the same)
+# https://askubuntu.com/questions/870470/zsh-fish-filename-autocompletion-in-bash
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
