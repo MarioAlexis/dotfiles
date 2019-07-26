@@ -70,35 +70,6 @@ echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|
 
 ## Dotfiles
 
-### Setup .bashrc file
-
-Add this at the end of your current .bashrc file.
-Make sure do not broke anything.
-```bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
-
-if [ -n "$zsh_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.zshrc" ]; then
-        . "$HOME/.zshrc"
-    fi
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-```
-
 ### Install dotfiles
 ```bash
 # Create dotfiles dir
