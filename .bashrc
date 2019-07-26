@@ -44,38 +44,3 @@ command -v helm >/dev/null 2>&1 && source <(helm completion bash)
 # https://askubuntu.com/questions/870470/zsh-fish-filename-autocompletion-in-bash
 bind 'set show-all-if-ambiguous on'
 bind 'TAB:menu-complete'
-
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-        echo "Running bash"
-    fi
-fi
-
-if [ -n "$zsh_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.zshrc" ]; then
-        . "$HOME/.zshrc"
-        echo "Running zsh"
-    fi
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    echo $PATH | grep -q "$HOME/bin"
-    if [ $? -eq 0 ]; then
-        echo "$HOME/bin already in PATH"
-    else
-        PATH="$HOME/bin:$PATH"
-    fi
-fi
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    echo $PATH | grep -q "$HOME/.local/bin"
-    if [ $? -eq 0 ]; then
-        echo "$HOME/.local/bin already in PATH"
-    else
-        PATH="$HOME/.local/bin:$PATH"
-    fi
-fi
