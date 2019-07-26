@@ -22,8 +22,10 @@ function link_to_home()
         fi
 
         if [ -h $HOME/$f ]; then
-            if [ $(readlink $HOME/$f) = $DOTFILES/$f ]; then
-                echo $f already installed
+            if confirm "Overwrite $HOME/$f?"; then
+                rm -rf $HOME/$f
+                ln -sf $DOTFILES/$f $HOME/$f
+                echo $f installed!
             fi
         else
             if [ -f $HOME/$f ]; then
