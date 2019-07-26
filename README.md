@@ -70,9 +70,9 @@ echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|
 
 ## Dotfiles
 
-### Setup .profile file
+### Setup .bashrc file
 
-Add this at the end of your current .profile file.
+Add this at the end of your current .bashrc file.
 Make sure do not broke anything.
 ```bash
 if [ -n "$BASH_VERSION" ]; then
