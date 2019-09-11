@@ -2,8 +2,8 @@
 ## PowerShell Config
 ```powershell
 # Download Package Manager
-set-executionpolicy unrestricted -s cu
-iex (new-object net.webclient).downloadstring('[https://get.scoop.sh')](https://get.scoop.sh%27%29/)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+iwr -useb get.scoop.sh | iex
 ```
 ```
 # Install linux coreutil on windows
