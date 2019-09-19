@@ -1,5 +1,9 @@
 export LC_ALL="en_US.UTF-8"
 
+[ -e ~/.shell_alias ] && source ~/.shell_alias 
+[ -e ~/.shell_env ] && source ~/.shell_env
+[ -e ~/.shell_functions ] && source ~/.shell_functions
+
 #install zplug
 [ ! -d ~/.zplug ] && curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 
@@ -7,13 +11,13 @@ export LC_ALL="en_US.UTF-8"
 source ~/.zplug/init.zsh
 
 zplug "zplug/zplug"                                     # Let zplug manage zplug
-zplug "yous/vanilli.sh"                                 # A lightweight start point of shell configuration
+#zplug "yous/vanilli.sh"                                 # A lightweight start point of shell configuration
 zplug "zsh-users/zsh-completions"                       # Additional completion definitions for Zsh
 zplug "zsh-users/zsh-autosuggestions"                   # suggest commands from history
 # zplug "yous/lime"                                       # Simple prompt
 zplug "nojhan/liquidprompt"                             # more complexe prompt
 zplug "chriskempson/base16-shell"                       # Color palette
-zplug "zsh-users/zsh-syntax-highlighting", defer:2       # Syntax highlighting
+#zplug "zsh-users/zsh-syntax-highlighting", defer:2       # Syntax highlighting
 zplug "zsh-users/zsh-history-substring-search", defer:3  # ZSH port of Fish shell's history search feature
 
 # A command-line fuzzy finder
@@ -46,6 +50,25 @@ zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
-[ -e ~/.shell_alias ] && source ~/.shell_alias 
-[ -e ~/.shell_env ] && source ~/.shell_env
-[ -e ~/.shell_functions ] && source ~/.shell_functions
+# Completion
+setopt always_to_end
+setopt complete_in_word
+unsetopt list_beep
+WORDCHARS=''
+zmodload zsh/complist
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Z}{a-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+  function zle-line-init() {
+    echoti smkx
+  }
+
+  function zle-line-finish() {
+    echoti rmkx
+  }
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+[ -n "${terminfo[kcbt]}" ] && bindkey "${terminfo[kcbt]}" reverse-menu-complete
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
