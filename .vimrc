@@ -325,6 +325,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Toggle line numbers and special characters with <F3>
 noremap <F3> :set nu!<CR>:IndentLinesToggle<CR>
 inoremap <F3> <C-o>:set nu!<CR>:IndentLinesToggle<CR>
+noremap <F8> <C-w><CR>gf<CR>
 
 " Toggle paste mode
 set pastetoggle=<F2>
