@@ -54,10 +54,10 @@ link_to_home "$DOTFILES_TO_INSTALL"
 
 # Install vim plugin
 if [ -d ~/.vim/plugged/vim-superman ]; then
-    vim -c ':PlugUpdate'
+    vim -c ':PlugUpdate | quitall'
 else
-    vim -c ':PlugInstall'
-    find ~/.vim -type f -name "vman" -exec cp {} ~/bin +
+    vim -c ':PlugInstall | quitall'
+    find ~/.vim -type f -name "vman" -exec cp {} ~/bin \;
 fi
 
 # source .bashrc
