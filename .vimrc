@@ -31,7 +31,7 @@ Plug 'Yggdroot/indentLine'              " A vim plugin to display the indention 
 Plug 'junegunn/limelight.vim'           " 🔦 All the world's indeed a stage and we are merely players
 Plug 'junegunn/goyo.vim'                " 🌷 Distraction-free writing in Vimm
 Plug 'junegunn/seoul256.vim'            " 🌳 Low-contrast Vim color scheme based on Seoul Colors
-
+Plug 'jez/vim-superman'                 " Read UNIX man pages in vim
 
 " Coding: tags, git, C\C++
 Plug 'tpope/vim-fugitive'               " a Git wrapper so awesome, it should be illegal
