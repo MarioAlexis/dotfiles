@@ -46,5 +46,19 @@ function link_to_home()
 #   MAIN
 ##################
 
+# Create ~/bin if not exist
+mkdir -p ~/bin
+
 DOTFILES_TO_INSTALL=".gitconfig .tmux.conf .vimrc .zshrc .bashrc .shell_alias .shell_env .shell_functions"
 link_to_home "$DOTFILES_TO_INSTALL"
+
+# Install vim plugin
+if [ -d ~/.vim/plugged/vim-superman ]; then
+    vim -c ':PlugUpdate'
+else
+    vim -c ':PlugInstall'
+    find ~/.vim -type f -name "vman" -exec cp {} ~/bin +
+fi
+
+# source .bashrc
+source ~/.bashrc
