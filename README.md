@@ -63,6 +63,10 @@ Font=DejaVuSansMono NF
 FontHeight=11
 ```
 
+## Download font for powershell
+Here the instructions
+https://medium.com/@slmeng/how-to-install-powerline-fonts-in-windows-b2eedecace58
+
 ## VIM oneliner
 ```bash
 echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|inoremap jk <esc>" > ~/.vimrc
