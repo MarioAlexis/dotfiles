@@ -73,7 +73,7 @@ echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|
 ```
 ## Alias oneliner
 ```bash
-echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc
+echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 ```
 
 ## Dotfiles
