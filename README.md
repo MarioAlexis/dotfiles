@@ -71,6 +71,10 @@ https://medium.com/@slmeng/how-to-install-powerline-fonts-in-windows-b2eedecace5
 ```bash
 echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|inoremap jk <esc>" > ~/.vimrc
 ```
+## Alias oneliner
+```bash
+echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc
+```
 
 ## Dotfiles
 
