@@ -49,7 +49,10 @@ function link_to_home()
 # Create ~/bin if not exist
 mkdir -p ~/bin
 
-DOTFILES_TO_INSTALL=".gitconfig .tmux.conf .vimrc .zshrc .bashrc .shell_alias .shell_env .shell_functions"
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions"
 link_to_home "$DOTFILES_TO_INSTALL"
 
 # Install vim plugin
@@ -59,6 +62,3 @@ else
     vim -c ':PlugInstall | quitall'
     find ~/.vim -type f -name "vman" -exec cp {} ~/bin \;
 fi
-
-# source .bashrc
-source ~/.bashrc
