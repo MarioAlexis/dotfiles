@@ -16,25 +16,15 @@ function confirm()
 function link_to_home()
 {
     for f in ${1}; do
-        if [ ! -s $DOTFILES/$f ]; then
-            echo "$f not found downloading"
-            curl -sL -o $DOTFILES/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
-        fi
-
-        if [ -h $HOME/$f ]; then
+        if [ -f $HOME/$f ]; then
             if confirm "Overwrite $HOME/$f?"; then
                 rm -rf $HOME/$f
-                echo $f installed!
-            fi
-        else
-            if [ -f $HOME/$f ]; then
-                if confirm "Overwrite $HOME/$f?"; then
-                    rm -rf $HOME/$f
-                    echo $HOME/$f installed!
-                fi
-            else
+                curl -sL -o $DOTFILES/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
                 echo $HOME/$f installed!
             fi
+        else
+            curl -sL -o $DOTFILES/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
+            echo $HOME/$f installed!
         fi
     done
 }
