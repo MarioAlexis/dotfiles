@@ -79,8 +79,8 @@ echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 ## Dotfiles
 
 ### Install dotfiles
+Install ZSH following these [instructions](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).
 ```bash
-# Create dotfiles dir
-# Grab raq dotfiles by calling dotfiles installer script
+# Copy dotfile to HOME location
 bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)" && \
 ```

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}")" && pwd )"
+DOTFILES="~/"
 
 
 function confirm()
@@ -24,14 +24,12 @@ function link_to_home()
         if [ -h $HOME/$f ]; then
             if confirm "Overwrite $HOME/$f?"; then
                 rm -rf $HOME/$f
-                ln -sf $DOTFILES/$f $HOME/$f
                 echo $f installed!
             fi
         else
             if [ -f $HOME/$f ]; then
                 if confirm "Overwrite $HOME/$f?"; then
                     rm -rf $HOME/$f
-                    ln -sf $DOTFILES/$f $HOME/$f
                     echo $HOME/$f installed!
                 fi
             else
