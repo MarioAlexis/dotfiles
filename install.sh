@@ -33,7 +33,6 @@ function link_to_home()
                     echo $HOME/$f installed!
                 fi
             else
-                ln -sf $DOTFILES/$f $HOME/$f
                 echo $HOME/$f installed!
             fi
         fi
@@ -46,9 +45,7 @@ function link_to_home()
 
 # Create ~/bin if not exist
 mkdir -p ~/bin
-
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+mkdir -p ~/.vim
 
 DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions"
 link_to_home "$DOTFILES_TO_INSTALL"

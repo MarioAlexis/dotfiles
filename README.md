@@ -80,6 +80,13 @@ echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 
 ### Install dotfiles
 Install ZSH following these [instructions](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).
+
+Then Install `oh-my-zsh`
+```bash
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
 ```bash
 # Copy dotfile to HOME location
 bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)" && \
