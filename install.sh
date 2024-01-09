@@ -1,8 +1,5 @@
 #!/bin/bash
 
-DOTFILES="~/"
-
-
 function confirm()
 {
     read -p "$1 [y/N]" -n 1 -r
@@ -16,15 +13,15 @@ function confirm()
 function link_to_home()
 {
     for f in ${1}; do
-        if [ -f $HOME/$f ]; then
-            if confirm "Overwrite $HOME/$f?"; then
-                rm -rf $HOME/$f
-                curl -sL -o $DOTFILES/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
-                echo $HOME/$f installed!
+        if [ -f ~/$f ]; then
+            if confirm "Overwrite ~/$f?"; then
+                rm -rf ~/$f
+                curl -sL -o ~/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
+                echo ~/$f installed!
             fi
         else
-            curl -sL -o $DOTFILES/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
-            echo $HOME/$f installed!
+            curl -sL -o ~/$f https://raw.githubusercontent.com/MarioAlexis/dotfile/master/$f
+            echo ~/$f installed!
         fi
     done
 }
@@ -38,7 +35,7 @@ mkdir -p ~/bin
 mkdir -p ~/.vim
 
 DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions"
-link_to_home "$DOTFILES_TO_INSTALL"
+link_to_home "~_TO_INSTALL"
 
 # Install vim plugin
 if [ -d ~/.vim/plugged/vim-superman ]; then
