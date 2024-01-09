@@ -35,7 +35,7 @@ mkdir -p ~/bin
 mkdir -p ~/.vim
 
 DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions"
-link_to_home "~_TO_INSTALL"
+link_to_home "$DOTFILES_TO_INSTALL"
 
 # Install vim plugin
 if [ -d ~/.vim/plugged/vim-superman ]; then
