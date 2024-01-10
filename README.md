@@ -81,13 +81,31 @@ echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 ### Install dotfiles
 Install ZSH following these [instructions](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).
 
+Download & install `DejaVu Sans Mono` font in [here](https://www.nerdfonts.com/font-downloads).
+
+**NOTE:** Make sure to set the correct font in your terminal or VSCode
+
+Install zsh
+```bash
+sudo apt install zsh
+```
+
+Make zsh default shell
+```bash
+chsh -s $(which zsh)
+```
+
 Then Install `oh-my-zsh`
 ```bash
-# Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+Install `powerlevel10k`
 ```bash
-# Copy dotfile to HOME location
-bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)" && \
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Download dotfiles
+```bash
+bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)"
 ```
