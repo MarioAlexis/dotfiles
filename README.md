@@ -76,6 +76,36 @@ echo "color desert|set nu|set et|set ts=4|set nowrap|set hls|set is|set pt=<F2>|
 echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 ```
 
+## Install Python version with PYENV
+Install `pyenv`
+```bash
+curl https://pyenv.run | bash
+```
+The installation creates `$HOME/.pyenv` directory which is then detected by the _doftiles install script_ to setup corresponding env vars.
+
+List all available Python version
+```bash
+pyenv install --list
+```
+
+**NOTE**: At this point, `dotfiles install` script has been already executed.
+Install a specific Python version
+```bash
+pyenv install 3.8
+```
+
+Ensure to set the correct Python version for your project directory
+```bash
+pyenv local 3.8
+```
+
+Create your Python virtual env using `pyenv`
+```bash
+pipenv --python $(pyenv which python)
+```
+This command tells `pipenv` to use the Python interpreter that `pyenv` has set for the current directory.
+Python interpreter specified by the .python-version file.
+
 ## Dotfiles
 
 ### Install dotfiles
