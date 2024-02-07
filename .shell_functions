@@ -108,3 +108,16 @@ function checksum() {
 function vimp() {
     bash <(curl -sfL https://raw.githubusercontent.com/junegunn/myvim/master/myvim)
 }
+
+function getArtifactoryPassword() {
+    echo "Please enter your user password:"
+    read -s password
+    encrypted_password=$(curl -s -u mlabrana:$password -X GET https://artifactory-tx.rbbn.com/artifactory/api/security/encryptedPassword)
+    echo
+    echo -e "\tartifactory-tx --> $encrypted_password"
+    encrypted_password=$(curl -s -u mlabrana:$password -X GET https://artifactory1-ot.rbbn.com/artifactory/api/security/encryptedPassword)
+    echo -e "\tartifactory1-ot --> $encrypted_password"
+    export ARTIFACTORY_USER=mlabrana
+    export ARTIFACTORY_PASS=$encrypted_password
+    export BASE_ARTIFACTORY_URL=artifactory1-ot.rbbn.com
+}
