@@ -18,7 +18,7 @@ if [ -e ~/.pythonrc ]; then
 fi
 
 # Setup pyenv is installed
-if command -c pyenv; then
+if command -v pyenv; then
     echo "pyenv is installed"
 fi
 
