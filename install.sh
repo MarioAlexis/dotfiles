@@ -34,7 +34,7 @@ function link_to_home()
 mkdir -p ~/bin
 mkdir -p ~/.vim
 
-DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions"
+DOTFILES_TO_INSTALL=".gitconfig .vimrc .zshrc .p10k.zsh .shell_alias .shell_env .shell_functions .shell_vars"
 link_to_home "$DOTFILES_TO_INSTALL"
 
 # Install vim plugin
