@@ -110,14 +110,10 @@ function vimp() {
 }
 
 function getArtifactoryPassword() {
-    echo "Please enter your user password:"
+    source $HOME/.shell_vars
+    echo "Please enter your user [$ARTIFACTORY_USER] password:"
     read -s password
-    encrypted_password=$(curl -s -u mlabrana:$password -X GET https://artifactory-tx.rbbn.com/artifactory/api/security/encryptedPassword)
+    encrypted_password=$(curl -s -u $ARTIFACTORY_USER:$password -X GET $ARTIFACTORY_URL/artifactory/api/security/encryptedPassword)
     echo
-    echo -e "\tartifactory-tx --> $encrypted_password"
-    encrypted_password=$(curl -s -u mlabrana:$password -X GET https://artifactory1-ot.rbbn.com/artifactory/api/security/encryptedPassword)
-    echo -e "\tartifactory1-ot --> $encrypted_password"
-    export ARTIFACTORY_USER=mlabrana
-    export ARTIFACTORY_PASS=$encrypted_password
-    export BASE_ARTIFACTORY_URL=artifactory1-ot.rbbn.com
+    echo -e "\tEncrypted Password: $encrypted_password"
 }
