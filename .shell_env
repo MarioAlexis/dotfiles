@@ -30,6 +30,11 @@ else
     echo -e "${RED}DOTFILES: ${NC} pyenv is not installed."
 fi
 
+# Auto Completion for Helm
+if command -v helm; then
+    source <(helm completion zsh)
+fi
+
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/bin" ] && export PATH=$HOME/bin:/usr/local/bin:$PATH
 
