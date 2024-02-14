@@ -31,13 +31,10 @@ else
 fi
 
 # Auto Completion for Helm
-if command -v helm; then
-    source <(helm completion zsh)
-fi
+command -v helm > /dev/null 2>&1 && source <(helm completion zsh)
 
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/bin" ] && export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 
 DISPLAY=$(hostname):0.0
 
