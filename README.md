@@ -1,8 +1,11 @@
 # Table Of Content
-* [Install dotfiles on Linux](#install-zsh-on-linux)
-* [Install dotfiles on Mac](#intall-dotfiles-on-mac)
+* [Install zsh on Linux](#install-zsh-on-linux)
+* [Install zsh on Mac](#intall-zsh-on-mac)
+* [Install oh-my-zsh](#install-oh-my-zsh)
+* [Install powerlevel10k](#install-powerlevel10k)
+* [Download dotfiles](#download-dotfiles)
 
-## Install dotfiles on Linux
+## Install zsh on Linux
 Download & install `DejaVu Sans Mono` font in [here](https://www.nerdfonts.com/font-downloads).
 
 **NOTE:** Make sure to set the correct font in your terminal or VSCode
@@ -17,22 +20,7 @@ Make zsh default shell
 chsh -s $(which zsh)
 ```
 
-Then Install `oh-my-zsh`
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-Install `powerlevel10k`
-```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-Download dotfiles
-```bash
-bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)"
-```
-
-## Intall dotfiles on Mac
+## Intall zsh on Mac
 Install Homebrew
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -62,7 +50,20 @@ Verify installation
 zsh --version
 ```
 
+## Install oh-my-zsh
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
+## Install powerlevel10k
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+## Download dotfiles
+```bash
+bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)"
+```
 
 ## VIM oneliner
 ```bash
