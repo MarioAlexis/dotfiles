@@ -1,71 +1,68 @@
-# Dotfiles
-## PowerShell Config
-```powershell
-# Download Package Manager
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-iwr -useb get.scoop.sh | iex
-```
-```
-# Install linux coreutil on windows
-scoop install sudo 7zip coreutils curl wget git grep openssh sed vim concfg pshazz
-```
-```
-# Install GUI app
-scoop bucket add extras
-scoop install wsltty conemu vscode wireshark audacity vcxsrv
-# Can add more
-# Lie Java
-scoop bucket add java
-scoop install openjdk
-```
-```
-# Install nerd-fonts via scoop
-scoop bucket add nerd-fonts
-# Now, need to open a PowerShell as Admin
-sudo scoop install DejaVuSansMono-Nf
-```
-```
-# Install FZF and and shell integration
-scoop install fzf
-Install-Module  -Name  PSFzf
-```
-```
-# Install PowerShell Theme
-concfg import  [https://raw.githubusercontent.com/h404bi/base16-concfg/master/presets/base16-oceanicnext.json](https://raw.githubusercontent.com/h404bi/base16-concfg/master/presets/base16-oceanicnext.json)
+# Table Of Content
+* [Install dotfiles on Linux](#install-zsh-on-linux)
+* [Install dotfiles on Mac](#intall-dotfiles-on-mac)
+
+## Install dotfiles on Linux
+Download & install `DejaVu Sans Mono` font in [here](https://www.nerdfonts.com/font-downloads).
+
+**NOTE:** Make sure to set the correct font in your terminal or VSCode
+
+Install zsh
+```bash
+sudo apt install zsh
 ```
 
-## sshd in WSL
-```
-# Open port in WSL
-netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=block
-netsh advfirewall firewall add rule name="sshd" protocol=TCP dir=in localport=22 action=allow
-```
-```
-# Configure sshd in WSL
-sudo apt update
-sudo apt remove openssh-server
-sudo apt install openssh-server
-sudo sed -i 's/^PasswordAuthentication $/PasswordAuthentication yes/' /etc/ssh/sshd_config
-sudo service ssh --full-restart
+Make zsh default shell
+```bash
+chsh -s $(which zsh)
 ```
 
-## Configure wsltty
-Open a powershell
-```
-vim %APPDATA%\wsltty\config
-```
-Write this:
-```
-Term=xterm-256color
-Scrollbar=none
-CursorType=block
-Font=DejaVuSansMono NF
-FontHeight=11
+Then Install `oh-my-zsh`
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## Download font for powershell
-Here the instructions
-https://medium.com/@slmeng/how-to-install-powerline-fonts-in-windows-b2eedecace58
+Install `powerlevel10k`
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Download dotfiles
+```bash
+bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)"
+```
+
+## Intall dotfiles on Mac
+Install Homebrew
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Add `brew` into user PATH
+```bash
+(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
+```
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+Install zsh
+```bash
+brew install zsh
+```
+
+Set zsh as your default shell.
+* For m1 macs:
+  ```bash
+    chsh -s /opt/homebrew/bin/zsh
+  ```
+
+Verify installation
+```bash
+zsh --version
+```
+
+
 
 ## VIM oneliner
 ```bash
@@ -105,37 +102,3 @@ pipenv --python $(pyenv which python)
 ```
 This command tells `pipenv` to use the Python interpreter that `pyenv` has set for the current directory.
 Python interpreter specified by the .python-version file.
-
-## Dotfiles
-
-### Install dotfiles
-Install ZSH following these [instructions](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).
-
-Download & install `DejaVu Sans Mono` font in [here](https://www.nerdfonts.com/font-downloads).
-
-**NOTE:** Make sure to set the correct font in your terminal or VSCode
-
-Install zsh
-```bash
-sudo apt install zsh
-```
-
-Make zsh default shell
-```bash
-chsh -s $(which zsh)
-```
-
-Then Install `oh-my-zsh`
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-Install `powerlevel10k`
-```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-Download dotfiles
-```bash
-bash -c "$(curl -sL --proto-redir -all,https https://raw.githubusercontent.com/MarioAlexis/dotfile/master/install.sh)"
-```
