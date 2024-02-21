@@ -1,54 +1,68 @@
 # Table Of Content
-* [Install zsh on Linux](#install-zsh-on-linux)
-* [Install zsh on Mac](#intall-zsh-on-mac)
+* [Download Font](#download-font)
+* [Install zsh](#install-zsh)
 * [Install oh-my-zsh](#install-oh-my-zsh)
 * [Install powerlevel10k](#install-powerlevel10k)
 * [Download dotfiles](#download-dotfiles)
 
-## Install zsh on Linux
-Download & install `DejaVu Sans Mono` font in [here](https://www.nerdfonts.com/font-downloads).
+## Download Font
+The font recommended for p10k is `MesloLGS NF`.
+
+Download & install the font in [here](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k).
 
 **NOTE:** Make sure to set the correct font in your terminal or VSCode
 
-Install zsh
-```bash
-sudo apt install zsh
-```
 
-Make zsh default shell
-```bash
-chsh -s $(which zsh)
-```
+## Install zsh
+<details linux>
+  <summary>Intall on Linux</summary>
 
-## Intall zsh on Mac
-Install Homebrew
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Add `brew` into user PATH
-```bash
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
-```
-```bash
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
-
-Install zsh
-```bash
-brew install zsh
-```
-
-Set zsh as your default shell.
-* For m1 macs:
   ```bash
-    chsh -s /opt/homebrew/bin/zsh
+  sudo apt install zsh
   ```
 
-Verify installation
-```bash
-zsh --version
-```
+  Make zsh default shell
+  ```bash
+  chsh -s $(which zsh)
+  ```
+</details>
+
+---
+
+<details macos>
+  <summary>Install on MacOs</summary>
+  Install Homebrew
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+  Add `brew` into user PATH
+  ```bash
+  (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
+  ```
+  ```bash
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  ```
+
+  Install zsh
+  ```bash
+  brew install zsh
+  ```
+
+  Set zsh as your default shell.
+  * For m1 macs:
+    ```bash
+      chsh -s /opt/homebrew/bin/zsh
+    ```
+
+  Verify installation
+  ```bash
+  zsh --version
+  ```
+</details>
+
+---
+
 
 ## Install oh-my-zsh
 ```bash
