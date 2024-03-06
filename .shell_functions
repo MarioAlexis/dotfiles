@@ -73,7 +73,7 @@ function helm_older_releases() {
     # Get the current date in epoch time
     current_date=$(date +%s)
 
-    # Define the age limit (30 days in seconds)
+    # Define the age limit
     age_limit=$(($days_threshold * 24 * 60 * 60))
 
     # Print header
@@ -111,18 +111,30 @@ function getArtifactoryPassword() {
 }
 
 funct oc_login() {
-    source .shell_vars
+    source $HOME/.shell_vars
+
+    missing_data=0
 
     if [ ${#K8S_CLUSTER_LIST[@]} -eq 0 ]; then
         echo -e "Variable \033[0;95mK8S_CLUSTER_LIST\033[0m from \$HOME/.shell_vars is empty."
-    else
-        # Use fzf to let the user pick a server.
-        printf -v var "%s\n" "${K8S_CLUSTER_LIST[@]}"
-        selected_server=$(echo "${var}" | fzf)
+        missing_data=1
+    fi
 
-        # Check if a server was selected
-        if [ -n "$selected_server" ]; then
-            oc login $selected_server -u $K8S_USERNAME
-        fi
+    if [ -z "${K8S_USERNAME}" ]; then
+        echo -e "Variable \033[0;95mK8S_USERNAME\033[0m from \$HOME/.shell_vars is empty."
+        missing_data=1
+    fi
+
+    if [ $missing_data -eq 1 ]; then
+        return
+    fi
+
+    # Use fzf to let the user pick a server.
+    printf -v var "%s\n" "${K8S_CLUSTER_LIST[@]}"
+    selected_server=$(echo "${var}" | fzf)
+
+    # Check if a server was selected
+    if [ -n "$selected_server" ]; then
+        oc login $selected_server -u $K8S_USERNAME
     fi
 }
