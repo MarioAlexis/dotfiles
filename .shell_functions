@@ -40,6 +40,24 @@ function term-256-color-test()
     done
 }
 
+function term-truecolor-test()
+{
+    printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
+    awk 'BEGIN{
+        s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+        for (colnum = 0; colnum<77; colnum++) {
+            r = 255-(colnum*255/76);
+            g = (colnum*510/76);
+            b = (colnum*255/76);
+            if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm", r,g,b;
+            printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+            printf "%s\033[0m", substr(s,colnum+1,1);
+        }
+        printf "\n";
+    }'
+}
+
 function helm_older_releases() {
     # Check if the correct number of arguments is provided
     if [ "$#" -ne 2 ]; then
@@ -83,26 +101,6 @@ function helm_older_releases() {
     done
 }
 
-
-
-function term-truecolor-test()
-{
-    printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
-    awk 'BEGIN{
-        s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
-        for (colnum = 0; colnum<77; colnum++) {
-            r = 255-(colnum*255/76);
-            g = (colnum*510/76);
-            b = (colnum*255/76);
-            if (g>255) g = 510-g;
-            printf "\033[48;2;%d;%d;%dm", r,g,b;
-            printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-            printf "%s\033[0m", substr(s,colnum+1,1);
-        }
-        printf "\n";
-    }'
-}
-
 function getArtifactoryPassword() {
     source $HOME/.shell_vars
     echo "Please enter your user [$ARTIFACTORY_USER] password:"
@@ -110,4 +108,21 @@ function getArtifactoryPassword() {
     encrypted_password=$(curl -s -u $ARTIFACTORY_USER:$password -X GET $ARTIFACTORY_URL/artifactory/api/security/encryptedPassword)
     echo
     echo -e "\tEncrypted Password: $encrypted_password"
+}
+
+funct oc_login() {
+    source .shell_vars
+
+    if [ ${#K8S_CLUSTER_LIST[@]} -eq 0 ]; then
+        echo -e "Variable \033[0;95mK8S_CLUSTER_LIST\033[0m from \$HOME/.shell_vars is empty."
+    else
+        # Use fzf to let the user pick a server.
+        printf -v var "%s\n" "${K8S_CLUSTER_LIST[@]}"
+        selected_server=$(echo "${var}" | fzf)
+
+        # Check if a server was selected
+        if [ -n "$selected_server" ]; then
+            oc login $selected_server -u $K8S_USERNAME
+        fi
+    fi
 }
