@@ -40,6 +40,51 @@ function term-256-color-test()
     done
 }
 
+function helm_older_releases() {
+    # Check if the correct number of arguments is provided
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: helm_older_releases <days_threshold> <name_width>"
+        echo "Example: helm_older_releases 30 40"
+        return 1
+    fi
+
+    # Assign arguments to variables
+    days_threshold=$1
+    name_width=$2
+
+    # Get the current date in epoch time
+    current_date=$(date +%s)
+
+    # Define the age limit (30 days in seconds)
+    age_limit=$(($days_threshold * 24 * 60 * 60))
+
+    # Print header
+    printf "%-${name_width}s %-20s\n" "RELEASE NAME" "DATE"
+    printf "%-${name_width}s %-20s\n" "------------" "----"
+
+    # List all helm releases and their revision dates
+    helm list --output json | jq -r '.[] | "\(.name) \(.updated)"' | while read -r line; do
+    # Extract the release name and date
+    release_name=$(echo $line | awk '{print $1}')
+    release_date=$(echo $line | awk '{print $2, $3, $4}')  # Adjust based on your helm's date format
+    date=$(echo $line | awk '{print $2}')
+
+    # Convert the release date to epoch time
+    release_date_epoch=$(date -d "$release_date" +%s)
+
+    # Calculate the age of the release
+    age=$((current_date - release_date_epoch))
+
+    # Check if the age is greater than the limit
+    if [ $age -gt $age_limit ]; then
+        # Print the release name
+        printf "%-${name_width}s %-20s\n" "$release_name" "$date"
+    fi
+    done
+}
+
+
+
 function term-truecolor-test()
 {
     printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
@@ -56,57 +101,6 @@ function term-truecolor-test()
         }
         printf "\n";
     }'
-}
-
-
-function countdown(){
-    date1=$((`date +%s` + $1)); 
-    while [ "$date1" -ge `date +%s` ]; do 
-        echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-        sleep 0.1
-    done
-    notify-send "Countdown Done $1 seconds elapsed" "$2"
-}
-function stopwatch(){
-    date1=`date +%s`; 
-    while true; do 
-        echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
-        sleep 0.1
-    done
-}
-
-# install spell to get /usr/share/dict/words
-function randomWord() {
-    shuf -n${1:-3} /usr/share/dict/words | sed "s/'//" | sed "s/.*/\u&/" | paste -s -d '' -
-}
-
-function randomWordSpace() {
-    shuf -n${1:-3} /usr/share/dict/words | sed "s/'//" | sed "s/.*/\u&/" | paste -s -d ' ' -
-}
-
-function wttr() {
-    if [ -z "$1" ]; then
-        curl -s 'http://wttr.in/Montreal?mpq&lang=fr' | head -n 38 
-    else
-        if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-            curl -s http://wttr.in/:help
-        else
-            curl -s "http://wttr.in/$1?pqm&lang=fr" | head -n 38 
-        fi
-    fi
-
-}
-
-function what() {
-    ps --no-headers -eo user,rss,%CPU | awk '{arr[$1]+=$2;arr2[$1]+=$3}; END {print "USER RSS %CPU"; for (i in arr) {print i,arr[i],arr2[i]|"sort -rnk2"}}'  | column -t
-}
-
-function checksum() {
-    bash -c "echo \"echo \"`md5sum $1`\" | md5sum -c\"  | tmux loadb -"
-}
-
-function vimp() {
-    bash <(curl -sfL https://raw.githubusercontent.com/junegunn/myvim/master/myvim)
 }
 
 function getArtifactoryPassword() {
