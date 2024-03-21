@@ -136,5 +136,8 @@ funct oc_login() {
     # Check if a server was selected
     if [ -n "$selected_server" ]; then
         oc login $selected_server -u $K8S_USERNAME
+        echo "oc login $selected_server -u $K8S_USERNAME" >> $HOME/.zsh_history
+        # Reload zsh history
+        fc -R
     fi
 }
