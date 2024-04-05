@@ -90,6 +90,29 @@ Re-configure `p10k`
 p10k configure
 ```
 
+## PowerShell
+Install `oh-my-posh`
+```powershell
+scoop install https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/oh-my-posh.json
+```
+
+Restart your terminal.
+
+Update your `$PROFILE`.
+```powershell
+notepad $PROFILE
+```
+
+Add following line.
+```powershell
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow.omp.json" | Invoke-Expression
+```
+
+Reload your profile
+```powershell
+. $PROFILE
+```
+
 # Useful Oneliner
 Vim
 ```bash
@@ -101,7 +124,7 @@ Alias
 echo -n "alias ll='ls -hal'\nalias ..='cd ..'" >> ~/.bashrc && source ~/.bashrc
 ```
 
-# Install Python version and setup Python virtualenv with PYENV
+# Install PYENV
 Install `pyenv`
 ```bash
 curl https://pyenv.run | bash
