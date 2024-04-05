@@ -5,6 +5,7 @@
   * [Install oh-my-zsh](#install-oh-my-zsh)
   * [Install powerlevel10k](#install-powerlevel10k)
   * [Download dotfiles](#download-dotfiles)
+  * [PowerShell](#powershell)
 * [Useful Oneliner](#useful-oneliner)
 * [Install pyenv](#install-python-version-and-setup-python-virtualenv-with-pyenv)
 * [Install nvm](#install-nvm-node-version-manager)
