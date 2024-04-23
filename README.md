@@ -7,7 +7,7 @@
   * [Download dotfiles](#download-dotfiles)
   * [PowerShell](#powershell)
 * [Useful Oneliner](#useful-oneliner)
-* [Install pyenv](#install-python-version-and-setup-python-virtualenv-with-pyenv)
+* [Install pyenv](#install-pyenv)
 * [Install nvm](#install-nvm-node-version-manager)
 
 
@@ -160,6 +160,19 @@ Start using Python virtualenv in your project
 `pyenv local [virtualenv_name]`
 ```bash
 pyenv local myvenv
+```
+
+Use pipenv with pyenv
+```bash
+# Confirm python version
+which python
+pyenv which python
+
+# Install pipenv
+pip install pipenv
+
+# Allow pipenv to use pyenv
+export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 ```
 
 # Install NVM (Node Version Manager)
