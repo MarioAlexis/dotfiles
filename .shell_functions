@@ -139,5 +139,11 @@ funct oc_login() {
         echo "oc login $selected_server -u $K8S_USERNAME" >> $HOME/.zsh_history
         # Reload zsh history
         fc -R
+
+        # Check if --token argument is provided
+        if [ "$1" = "--token" ]; then
+            user_token=$(oc whoami -t)
+            echo "User token: $user_token"
+        fi
     fi
 }
