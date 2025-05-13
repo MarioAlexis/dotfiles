@@ -58,55 +58,47 @@ function term-truecolor-test()
     }'
 }
 
-
-function countdown(){
-    date1=$((`date +%s` + $1)); 
-    while [ "$date1" -ge `date +%s` ]; do 
-        echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-        sleep 0.1
-    done
-    notify-send "Countdown Done $1 seconds elapsed" "$2"
-}
-function stopwatch(){
-    date1=`date +%s`; 
-    while true; do 
-        echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
-        sleep 0.1
-    done
-}
-
-# install spell to get /usr/share/dict/words
-function randomWord() {
-    shuf -n${1:-3} /usr/share/dict/words | sed "s/'//" | sed "s/.*/\u&/" | paste -s -d '' -
-}
-
-function randomWordSpace() {
-    shuf -n${1:-3} /usr/share/dict/words | sed "s/'//" | sed "s/.*/\u&/" | paste -s -d ' ' -
-}
-
-function wttr() {
-    if [ -z "$1" ]; then
-        curl -s 'http://wttr.in/Montreal?mpq&lang=fr' | head -n 38 
-    else
-        if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-            curl -s http://wttr.in/:help
-        else
-            curl -s "http://wttr.in/$1?pqm&lang=fr" | head -n 38 
-        fi
+function helm_older_releases() {
+    # Check if the correct number of arguments is provided
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: helm_older_releases <days_threshold> <name_width>"
+        echo "Example: helm_older_releases 30 40"
+        return 1
     fi
 
-}
+    # Assign arguments to variables
+    days_threshold=$1
+    name_width=$2
 
-function what() {
-    ps --no-headers -eo user,rss,%CPU | awk '{arr[$1]+=$2;arr2[$1]+=$3}; END {print "USER RSS %CPU"; for (i in arr) {print i,arr[i],arr2[i]|"sort -rnk2"}}'  | column -t
-}
+    # Get the current date in epoch time
+    current_date=$(date +%s)
 
-function checksum() {
-    bash -c "echo \"echo \"`md5sum $1`\" | md5sum -c\"  | tmux loadb -"
-}
+    # Define the age limit
+    age_limit=$(($days_threshold * 24 * 60 * 60))
 
-function vimp() {
-    bash <(curl -sfL https://raw.githubusercontent.com/junegunn/myvim/master/myvim)
+    # Print header
+    printf "%-${name_width}s %-20s\n" "RELEASE NAME" "DATE"
+    printf "%-${name_width}s %-20s\n" "------------" "----"
+
+    # List all helm releases and their revision dates
+    helm list --output json | jq -r '.[] | "\(.name) \(.updated)"' | while read -r line; do
+    # Extract the release name and date
+    release_name=$(echo $line | awk '{print $1}')
+    release_date=$(echo $line | awk '{print $2, $3, $4}')  # Adjust based on your helm's date format
+    date=$(echo $line | awk '{print $2}')
+
+    # Convert the release date to epoch time
+    release_date_epoch=$(date -d "$release_date" +%s)
+
+    # Calculate the age of the release
+    age=$((current_date - release_date_epoch))
+
+    # Check if the age is greater than the limit
+    if [ $age -gt $age_limit ]; then
+        # Print the release name
+        printf "%-${name_width}s %-20s\n" "$release_name" "$date"
+    fi
+    done
 }
 
 function getArtifactoryPassword() {
@@ -116,4 +108,42 @@ function getArtifactoryPassword() {
     encrypted_password=$(curl -s -u $ARTIFACTORY_USER:$password -X GET $ARTIFACTORY_URL/artifactory/api/security/encryptedPassword)
     echo
     echo -e "\tEncrypted Password: $encrypted_password"
+}
+
+funct oc_login() {
+    source $HOME/.shell_vars
+
+    missing_data=0
+
+    if [ ${#K8S_CLUSTER_LIST[@]} -eq 0 ]; then
+        echo -e "Variable \033[0;95mK8S_CLUSTER_LIST\033[0m from \$HOME/.shell_vars is empty."
+        missing_data=1
+    fi
+
+    if [ -z "${K8S_USERNAME}" ]; then
+        echo -e "Variable \033[0;95mK8S_USERNAME\033[0m from \$HOME/.shell_vars is empty."
+        missing_data=1
+    fi
+
+    if [ $missing_data -eq 1 ]; then
+        return
+    fi
+
+    # Use fzf to let the user pick a server.
+    printf -v var "%s\n" "${K8S_CLUSTER_LIST[@]}"
+    selected_server=$(echo "${var}" | fzf)
+
+    # Check if a server was selected
+    if [ -n "$selected_server" ]; then
+        oc login $selected_server -u $K8S_USERNAME
+        echo "oc login $selected_server -u $K8S_USERNAME" >> $HOME/.zsh_history
+        # Reload zsh history
+        fc -R
+
+        # Check if --token argument is provided
+        if [ "$1" = "--token" ]; then
+            user_token=$(oc whoami -t)
+            echo "User token: $user_token"
+        fi
+    fi
 }
