@@ -31,10 +31,23 @@ else
     echo -e "${RED}DOTFILES: ${NC} pyenv is not installed."
 fi
 
-# if .gvm exists, add its bin folder to PATH
-if [ -d "$HOME/.gvm" ]; then
-    export PATH="$HOME/.gvm/bin:$PATH"
+# Setup goenv if installed, else install it
+if command -v goenv > /dev/null || [ -d "$HOME/.goenv" ]; then
+    export GOENV_ROOT="$HOME/.goenv"
+    export PATH="$GOENV_ROOT/bin:$PATH"
+    eval "$(goenv init -)"
+    export PATH="$GOROOT/bin:$PATH"
+    export PATH="$PATH:$GOPATH/bin"
+else
+    echo -e "${RED}DOTFILES: ${NC} goenv is not installed. Installing..."
+    git clone https://github.com/go-nv/goenv.git "$HOME/.goenv"
+    export GOENV_ROOT="$HOME/.goenv"
+    export PATH="$GOENV_ROOT/bin:$PATH"
+    eval "$(goenv init -)"
+    export PATH="$GOROOT/bin:$PATH"
+    export PATH="$PATH:$GOPATH/bin"
 fi
+
 
 # Auto Completion for Helm
 command -v helm > /dev/null 2>&1 && source <(helm completion zsh)
