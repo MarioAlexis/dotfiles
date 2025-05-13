@@ -30,6 +30,11 @@ else
     echo -e "${RED}DOTFILES: ${NC} pyenv is not installed."
 fi
 
+# if .gvm exists, add its bin folder to PATH
+if [ -d "$HOME/.gvm" ]; then
+    export PATH="$HOME/.gvm/bin:$PATH"
+fi
+
 # Auto Completion for Helm
 command -v helm > /dev/null 2>&1 && source <(helm completion zsh)
 
